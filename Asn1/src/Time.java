@@ -9,7 +9,11 @@ public class Time {
         return time;
     }
 
-    public static int inc(){ //Increment global time
+    public static int inc(){ //Increment global time by 1
         return ++time;
     }    
+        public static int inc(int x){ //Increment global time by specific amount 
+            time += x;
+        return time;
+    } 
 }

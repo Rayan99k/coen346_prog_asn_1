@@ -5,7 +5,7 @@
 import random
 
 #Change this to limit the toal number of processes
-num_entries = 40
+num_entries = 10
 entries = []
 task_num = 0
 i = 0

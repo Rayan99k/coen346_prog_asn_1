@@ -8,26 +8,25 @@ public class Main{
     public static final int NUM_PIDS = (MAX_PID - MIN_PID + 1);
     public static boolean[] pid_map;
     static List<Process> processList = new ArrayList<>();
-    static Scheduler scheduler = new Scheduler();
+    static RR_Scheduler rr_scheduler = new RR_Scheduler();
 
     public static void main(String[] args) {
                 
         allocate_map(); //Setup the PID array
         process_file(); //Create process objects from file. Saved in processList     
 
-        // Add processes to the ready queue
-        //scheduler.addProcess(process1);
-        //scheduler.addProcess(process2);
-        //scheduler.addProcess(process3);
-        //scheduler.addProcess(process4);
-        //scheduler.addProcess(process5);
-        // Run the scheduler
-        //scheduler.runScheduler();
+        //Add all processes to the Round Robin Scheduler
+        for (Process process:processList){
+            rr_scheduler.addProcess(process);
+        }
+
+        rr_scheduler.runScheduler();
     }
 
     private static void process_file() {
         //Opens the file containing all the processes 
         //and creates a process object for each entry
+        //saves them into an ArrayList
 
         try {
             File myObj = new File("process_list.txt");
@@ -49,6 +48,8 @@ public class Main{
               //Create a new process for each line and add it to the list
               Process process = new Process(pid, name, priority, burstTime, arrivalTime, children);
               processList.add(process);
+
+              Process.incTotalProcesses();
             }
 
             myReader.close();
