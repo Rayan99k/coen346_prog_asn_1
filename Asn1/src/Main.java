@@ -58,6 +58,11 @@ public class Main{
             e.printStackTrace();
           }
 
+        //Custom comparator to sort based on arrivalTime
+        Comparator<Process> arrivalTimeComparator = Comparator.comparingInt(Process::getArrivalTime);
+        //Sort the processList using the custom comparator
+        Collections.sort(processList, arrivalTimeComparator);
+
     }
 
     static int allocate_map(){ 

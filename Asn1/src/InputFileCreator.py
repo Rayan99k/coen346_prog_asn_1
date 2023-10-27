@@ -4,8 +4,24 @@
 
 import random
 
-#Change this to limit the toal number of processes
+#Change this to adjust the output
 num_entries = 10
+
+priority_min = 1
+priority_max = 5
+
+burst_min = 1
+burst_max = 100
+
+arrival_min = 0
+arrival_max = 10
+
+children_min = 0
+children_max = 3
+
+
+
+
 entries = []
 task_num = 0
 i = 0
@@ -19,21 +35,22 @@ while (i<num_entries+1):
     task_num+=1
 
 
-    rand_priority = random.randint(1,5)
-    rand_burst = random.randint(1,50)
-    rand_arrival = random.randint(0,100)
-    rand_children = random.randint(0,3)
+    rand_priority = random.randint(priority_min,priority_max)
+    rand_burst = random.randint(burst_min,burst_max)
+    rand_arrival = random.randint(arrival_min,arrival_max)
+    rand_children = random.randint(children_min,children_max)
 
     entry =  f"T{task_num}, {rand_priority}, {rand_burst}, {rand_arrival}, {rand_children}" 
     entries.append(entry)
 
 
-    #If it has children, generate those with appropriate ranges
+    #If it has children, generate those with appropriate ranges 
+    #(child cant have arrival time less than parent)
     if rand_children>0:
         for j in range(1, rand_children+1):                        
-            rand_priority = random.randint(rand_priority, 5)
-            rand_burst = random.randint(1,50)
-            rand_arrival = random.randint(rand_arrival, 100)
+            rand_priority = random.randint(rand_priority, priority_max)
+            rand_burst = random.randint(burst_min,burst_max)
+            rand_arrival = random.randint(rand_arrival, arrival_max)
             entry =  f"T{task_num}.{j}, {rand_priority}, {rand_burst}, {rand_arrival}, {0}" 
             entries.append(entry)
 
@@ -45,4 +62,4 @@ while (i<num_entries+1):
 with open("process_list.txt", "w") as file:
     file.write("\n".join(entries))
 
-print(f"Generated Processes")    
+print(f"Generated Processes File")    

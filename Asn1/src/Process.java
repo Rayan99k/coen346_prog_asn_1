@@ -19,8 +19,9 @@ public class Process{
         this.priority = priority;
         this.burstTime = burstTime;
         this.arrivalTime = arrivalTime;
-        this.children = children;
         this.lastServed = arrivalTime;
+        this.children = children;
+        
 
         totalprocesses++; //Increment the total number everytime a process is created
 

@@ -42,18 +42,20 @@ public class RR_Scheduler {
             int remainingTime = currentProcess.getBurstTime();
 
             //Adjust the current time and remaining time.        
-            //Put the process back into queue if there is burstTime remaining
-            //Otherwise put the process into the Done queue
+            //Put the process back into queue if there is burstTime remaining            
             if (remainingTime > quantum){
                 currentProcess.setBurstTime(remainingTime-quantum);
                 Time.inc(quantum);                
                 currentProcess.setState("Ready");
                 readyQueue.add(currentProcess);
             }
-            else{
-                currentProcess.setBurstTime(0);
+
+            //Otherwise put the process into the Done queue
+            else{            
+                currentProcess.setBurstTime(0);            
                 Time.inc(remainingTime);
                 currentProcess.setState("Done");
+                currentProcess.setCompletionTime(Time.get()-currentProcess.getArrivalTime());
                 doneQueue.add(currentProcess);
             } 
             
@@ -61,9 +63,10 @@ public class RR_Scheduler {
 
             System.out.println("Current Time: " + Time.get() + 
                                ", Process: " + currentProcess.getName() + 
-                               ", Remaining CPU: " + currentProcess.getBurstTime());
+                               ", Remaining CPU: " + currentProcess.getBurstTime() 
+                              );
         }
-
+    }
 
 
 }
