@@ -4,7 +4,8 @@
 
 import random
 
-num_entries = 4000
+#Change this to limit the toal number of processes
+num_entries = 40
 entries = []
 task_num = 0
 i = 0
@@ -44,4 +45,4 @@ while (i<num_entries+1):
 with open("process_list.txt", "w") as file:
     file.write("\n".join(entries))
 
-print(f"Generated File")    
+print(f"Generated Processes")    

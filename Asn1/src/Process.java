@@ -3,13 +3,19 @@ public class Process{
     int priority;                           // Priority
     int burstTime;                          // CPU burst time
     int arrivalTime;                        // Arrival Time
-    int n;                                  // Number of child processes
+    int pid;                                // Process ID
+    int children;                           // Number of children
 
-    Process(String name, int priority, int burstTime, int arrivalTime, int n) {
+    static int totalprocesses = 0;
+
+    Process(int pid, String name, int priority, int burstTime, int arrivalTime, int children) {
+        this.pid = pid;
         this.name = name;
         this.priority = priority;
         this.burstTime = burstTime;
         this.arrivalTime = arrivalTime;
-        this.n = n;
+        this.children = children;
+
+        totalprocesses++; //Increment the total number everytime a process is created
     }
 }
