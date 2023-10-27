@@ -1,14 +1,16 @@
 public class Process{
-    private String name;                 // Name
-    private int priority;                // Priority
-    private int burstTime;               // CPU burst time
-    private int arrivalTime;             // Arrival Time
-    private int waitingTime;             // Time spent in ready or waiting state
-    private int completionTime;          // Time until it got into done state
-    private int lastServed;              // The last time in Running state
-    private int pid;                     // Process ID
-    private int children;                // Number of children
-    private String state;                // Waiting, Ready, Running
+    private String name;                    // Name
+    private int priority;                   // Priority
+    private int burstTime;                  // CPU burst time
+    private int arrivalTime;                // Arrival Time
+    private int waitingTime;                // Time spent in ready or waiting state
+    private int completionTime;             // Time until it got into done state
+    private int lastServed;                 // The last time in Running state
+    private int firstResponseTime;          // Time it took to go from Ready to Running. First time
+    private boolean firstResponse = false;  // Has it gone through the scheduler already?
+    private int pid;                        // Process ID
+    private int children;                   // Number of children
+    private String state;                   // Waiting, Ready, Running
 
 
     static int totalprocesses = 0;
@@ -102,5 +104,21 @@ public class Process{
         this.lastServed = lastServed;
     }
 
-    
+    public int getFirstResponseTime() {
+        return firstResponseTime;
+    }
+
+    public void setFirstResponseTime(int firstResponseTime) {
+        this.firstResponseTime = firstResponseTime;
+    }
+ 
+    public boolean isFirstResponse() {
+        return firstResponse;
+    }
+
+    public void setFirstResponse(boolean firstResponse) {
+        this.firstResponse = firstResponse;
+    }
+
+
 }

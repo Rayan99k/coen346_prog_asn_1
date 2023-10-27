@@ -5,7 +5,7 @@
 import random
 
 #Change this to adjust the output
-num_entries = 10
+num_entries = 5
 
 priority_min = 1
 priority_max = 5

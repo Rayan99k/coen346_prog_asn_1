@@ -15,5 +15,9 @@ public class Time {
         public static int inc(int x){ //Increment global time by specific amount 
             time += x;
         return time;
-    } 
+    }
+
+        public static void reset() {
+            time = 0;
+        } 
 }

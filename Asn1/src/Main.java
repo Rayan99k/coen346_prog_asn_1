@@ -8,19 +8,31 @@ public class Main{
     public static final int NUM_PIDS = (MAX_PID - MIN_PID + 1);
     public static boolean[] pid_map;
     static List<Process> processList = new ArrayList<>();
+    static FCFS_Scheduler fcfs_scheduler = new FCFS_Scheduler();
     static RR_Scheduler rr_scheduler = new RR_Scheduler();
+    
 
     public static void main(String[] args) {
                 
         allocate_map(); //Setup the PID array
         process_file(); //Create process objects from file. Saved in processList     
 
-        //Add all processes to the Round Robin Scheduler
+        //Add all processes to the Scheduler
         for (Process process:processList){
-            rr_scheduler.addProcess(process);
+            fcfs_scheduler.addProcess(process);            
         }
+        fcfs_scheduler.runScheduler();
 
+        //After each run. Need to reset and add the processes to the new scheduler
+        reset();
+
+
+        for (Process process:processList){        
+            rr_scheduler.addProcess(process);
+        }        
         rr_scheduler.runScheduler();
+        reset();   
+
     }
 
     private static void process_file() {
@@ -96,4 +108,16 @@ public class Main{
             pid_map[pid - MIN_PID] = false;
         }
     }
+
+    static void reset() {
+        //Have to reset the list because the schedulers directly modify its contents
+        Time.reset();
+        processList.clear();
+        process_file();
+    }
+
+    
+
+
+
 }
