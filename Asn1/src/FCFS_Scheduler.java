@@ -7,11 +7,7 @@ public class FCFS_Scheduler {
 
 
     int turnaroundAvg, responseAvg, waitingAvg;
-
-    private void FCFS(Process parentProcess) {
-
-    }
- 
+        
     void addProcess(Process process) {
         //Add process to appropriate queue. Waiting as long as it has children
         if(process.getChildren()>0){

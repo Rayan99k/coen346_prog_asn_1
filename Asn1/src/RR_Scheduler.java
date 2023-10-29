@@ -60,13 +60,27 @@ public class RR_Scheduler {
                 readyQueue.add(currentProcess);
             }
 
-            //Otherwise put the process into the Done queue
+            //Otherwise put the process into the Done queue and get its parent if it was the last child
             else{            
                 currentProcess.setBurstTime(0);            
                 Time.inc(remainingTime);
                 currentProcess.setState("Done");
                 currentProcess.setCompletionTime(Time.get()-currentProcess.getArrivalTime());
                 doneQueue.add(currentProcess);
+
+            //Go get the parent 
+            Process parent = currentProcess.getParent();
+
+            if (parent != null) {
+                parent.decChildren(); // Decrement the children count
+                
+                //If the current process was the last child put the parent in the readyQueue
+                if (parent.getChildren() == 0) {
+                    waitingQueue.remove(parent); // Remove the parent from waitingQueue
+                    readyQueue.add(parent); // Add the parent to readyQueue
+                }
+            }    
+
             } 
             
             currentProcess.setLastServed(Time.get());
