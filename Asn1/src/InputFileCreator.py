@@ -14,7 +14,7 @@ burst_min = 1
 burst_max = 100
 
 arrival_min = 0
-arrival_max = 10
+arrival_max = 20
 
 children_min = 0
 children_max = 3
@@ -47,11 +47,16 @@ while (i<num_entries+1):
     #If it has children, generate those with appropriate ranges 
     #(child cant have arrival time less than parent)
     if rand_children>0:
-        for j in range(1, rand_children+1):                        
+        child_arrival_times = [rand_arrival] + [random.randint(rand_arrival, arrival_max) for _ in range(1, rand_children)]
+        for j, child_arrival in enumerate(sorted(child_arrival_times)):
+        #for j in range(1, rand_children+1):                        
             rand_priority = random.randint(rand_priority, priority_max)
             rand_burst = random.randint(burst_min,burst_max)
-            rand_arrival = random.randint(rand_arrival, arrival_max)
-            entry =  f"T{task_num}.{j}, {rand_priority}, {rand_burst}, {rand_arrival}, {0}" 
+            entry =  f"T{task_num}.{j + 1}, {rand_priority}, {rand_burst}, {child_arrival}, {0}"
+            #Use parent's arrival time as a reference for child's arrival time
+            #rand_arrival_child = max(rand_arrival, random.randint(rand_arrival, arrival_max))
+            #entry =  f"T{task_num}.{j}, {rand_priority}, {rand_burst}, {rand_arrival_child}, {0}" 
+
             entries.append(entry)
 
         #Increment by the number of children to maintain the same total number of entries
