@@ -9,9 +9,42 @@ public class FCFS_Scheduler {
     int turnaroundAvg, responseAvg, waitingAvg;
 
     private void FCFS(Process parentProcess) {
+        for (int j = 1; j <= parentProcess.getChildren(); j++) {
 
+            String childName = parentProcess.getName().startsWith("T")
+                ? parentProcess.getName()
+                : "T" + parentProcess.getName();
+
+            Process childProcess = new Process(parentProcess.getPid(),
+                childName + "." + j,
+                parentProcess.getPriority(),
+                parentProcess.getBurstTime(),
+                parentProcess.getArrivalTime() + j,
+                parentProcess.getChildren());
+
+            //Add child to readyQueue while maintaining order based on arrival time
+            addOrderedToReadyQueue(childProcess);
+        }
+        addOrderedToReadyQueue(parentProcess);
     }
- 
+
+    private void addOrderedToReadyQueue(Process process) {
+        Queue<Process> tempQueue = new LinkedList<>();
+    
+        //Find the correct position for the new process in the readyQueue
+        while (!readyQueue.isEmpty() && readyQueue.peek().getArrivalTime() <= process.getArrivalTime()) {
+            tempQueue.add(readyQueue.poll());
+        }
+    
+        // Add the new process
+        readyQueue.add(process);
+    
+        // Restore the original order
+        while (!tempQueue.isEmpty()) {
+            readyQueue.add(tempQueue.poll());
+        }
+    }
+    
     void addProcess(Process process) {
         //Add process to appropriate queue. Waiting as long as it has children
         if(process.getChildren()>0){
@@ -28,12 +61,6 @@ public class FCFS_Scheduler {
         System.out.println("\n\n    First Come First Serve Scheduling\n\n");
         
         while (!readyQueue.isEmpty() || !waitingQueue.isEmpty()) {
-
-            System.out.println("\nReady Queue:");
-            printQueue(readyQueue);
-
-            System.out.println("\nWaiting Queue:");
-            printQueue(waitingQueue);
 
             Process currentProcess;
 
@@ -54,7 +81,7 @@ public class FCFS_Scheduler {
             }
 
             //poll(): Removes and returns the element at the front of the readyQueue.  
-            currentProcess = readyQueue.poll();
+            //Process currentProcess = readyQueue.poll();
             currentProcess.setState("Running");
 
             //Set the first contact time

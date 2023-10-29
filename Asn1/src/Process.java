@@ -11,7 +11,7 @@ public class Process{
     private int pid;                        // Process ID
     private int children;                   // Number of children
     private String state;                   // Waiting, Ready, Running
-
+    //private boolean isParent;               // Parent or child (T/F)
 
     static int totalprocesses = 0;
 
@@ -23,6 +23,7 @@ public class Process{
         this.arrivalTime = arrivalTime;
         this.lastServed = arrivalTime;
         this.children = children;
+        //this.isParent = (children > 0);
         
 
         totalprocesses++; //Increment the total number everytime a process is created
@@ -111,14 +112,16 @@ public class Process{
     public void setFirstResponseTime(int firstResponseTime) {
         this.firstResponseTime = firstResponseTime;
     }
- 
+
     public boolean isFirstResponse() {
         return firstResponse;
+    }
+ 
+    public void isFirstResponse(boolean firstResponse) {
+        this.firstResponse = firstResponse;
     }
 
     public void setFirstResponse(boolean firstResponse) {
         this.firstResponse = firstResponse;
     }
-
-
 }
