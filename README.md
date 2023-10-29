@@ -6,8 +6,7 @@ sorts according to arrival time
 save in processList
 The schedulers affect this list: reset() after running them
 
-# FCFS scheduler
-Missing handling of parents
+# :white_check_mark: FCFS scheduler
 
 # RR scheduler
 Missing handling parents
