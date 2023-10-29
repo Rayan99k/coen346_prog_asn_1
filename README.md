@@ -45,3 +45,7 @@ Child class: RR with Priority
 where Scheduler would have methods shared between all of them. Such as: releasing pids, performance calcs and readyQueue.
 
 It wouldn't be too hard to implement but its just more time.
+
+Need to release PID once they enter the done queue
+
+
