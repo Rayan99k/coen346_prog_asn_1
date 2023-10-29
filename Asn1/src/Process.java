@@ -10,6 +10,7 @@ public class Process{
     private boolean firstResponse = false;  // Has it gone through the scheduler already?
     private int pid;                        // Process ID
     private int children;                   // Number of children
+    private Process parent;                 // A reference to the parent of a process
     private String state;                   // Waiting, Ready, Running
     //private boolean isParent;               // Parent or child (T/F)
 
@@ -63,6 +64,10 @@ public class Process{
 
     public void setChildren(int children) {
         this.children = children;
+    }
+
+    public int decChildren() {
+        return(--this.children);
     }
 
     public String getState() {
@@ -124,4 +129,14 @@ public class Process{
     public void setFirstResponse(boolean firstResponse) {
         this.firstResponse = firstResponse;
     }
+
+    public Process getParent() {
+        return parent;
+    }
+
+    public void setParent(Process parent) {
+        this.parent = parent;
+    }
+
+
 }

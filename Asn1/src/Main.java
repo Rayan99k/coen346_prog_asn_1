@@ -15,7 +15,7 @@ public class Main{
     public static void main(String[] args) {
                 
         allocate_map(); //Setup the PID array
-        process_file(); //Create process objects from file. Saved in processList     
+        sortInputs(); //Create process objects from file. Saved in processList     
 
         //Add all processes to the Scheduler
         for (Process process:processList){
@@ -26,7 +26,7 @@ public class Main{
         //After each run. Need to reset and add the processes to the new scheduler
         reset();
 
-
+        //Add all processes to the Scheduler
         for (Process process:processList){        
             rr_scheduler.addProcess(process);
         }        
@@ -35,10 +35,11 @@ public class Main{
 
     }
 
-    private static void process_file() {
+    private static void sortInputs() {
         //Opens the file containing all the processes 
-        //and creates a process object for each entry
-        //saves them into an ArrayList
+        //Creates a process object for each entry
+        //Saves them into an ArrayList
+        //Sorts them according to arrival time
 
         try {
             File myObj = new File("process_list.txt");
@@ -55,9 +56,9 @@ public class Main{
               int arrivalTime = Integer.valueOf(parts[3]);
               int children = Integer.valueOf(parts[4]);
 
-              int pid = allocate_pid();              
+              int pid = allocate_pid(); //Fetch a pid for each process. That pid is not longer in use             
               
-              //Create a new process for each line and add it to the list
+              //Create a new process for each line in the file and add it to the list
               Process process = new Process(pid, name, priority, burstTime, arrivalTime, children);
               processList.add(process);
 
@@ -72,9 +73,25 @@ public class Main{
 
         //Custom comparator to sort based on arrivalTime
         Comparator<Process> arrivalTimeComparator = Comparator.comparingInt(Process::getArrivalTime);
+
         //Sort the processList using the custom comparator
         Collections.sort(processList, arrivalTimeComparator);
 
+        //Go through each process in the list. If it has children, add a reference to the parent in each child
+        for (int i = 0; i < processList.size(); i++) {
+            Process currentProcess = processList.get(i);
+            int childrenCount = currentProcess.getChildren();
+
+            if (childrenCount > 0) {
+                // Loop through the subsequent items and set the parent. Do this as many times as there are children
+                for (int j = i + 1; j <= i + childrenCount; j++) {
+                    if (j < processList.size()) {
+                        Process childProcess = processList.get(j);
+                        childProcess.setParent(currentProcess); // Save a reference to the parent in each child
+                    }
+                }
+            }
+        }
     }
 
     static int allocate_map(){ 
@@ -110,10 +127,10 @@ public class Main{
     }
 
     static void reset() {
-        //Have to reset the list because the schedulers directly modify its contents
+        //Have to reset the list of processes because the schedulers directly modify its contents
         Time.reset();
         processList.clear();
-        process_file();
+        sortInputs();
     }
 
     

@@ -46,7 +46,7 @@ public class FCFS_Scheduler {
     }
     
     void addProcess(Process process) {
-        //Add process to appropriate queue. Waiting as long as it has children
+        //Add process to appropriate queue
         if(process.getChildren()>0){
             process.setState("Waiting");
             waitingQueue.add(process);
@@ -91,11 +91,25 @@ public class FCFS_Scheduler {
             //Update waitingTime: currentTime - arrivalTime. 
             currentProcess.setWaitingTime((Time.get()-currentProcess.getArrivalTime()));
             
+            //Updates the time, and adds the process to done queue
             Time.inc(currentProcess.getBurstTime());
             currentProcess.setBurstTime(0);            
             currentProcess.setState("Done");
             currentProcess.setCompletionTime(Time.get()-currentProcess.getArrivalTime());
             doneQueue.add(currentProcess);
+
+
+            
+            //If the current process was the last child, go get the parent and put it in the ready queue. 
+            Process parent = currentProcess.getParent();
+
+            if (parent != null) {
+                parent.decChildren(); // Decrement the children count
+                if (parent.getChildren() == 0) {
+                    waitingQueue.remove(parent); // Remove the parent from waitingQueue
+                    readyQueue.add(parent); // Add the parent to readyQueue
+                }
+            }    
         
 
             System.out.println("Current Time: " + Time.get() + 
