@@ -71,11 +71,7 @@ public class Main{
             e.printStackTrace();
           }
 
-        //Custom comparator to sort based on arrivalTime
-        Comparator<Process> arrivalTimeComparator = Comparator.comparingInt(Process::getArrivalTime);
 
-        //Sort the processList using the custom comparator
-        Collections.sort(processList, arrivalTimeComparator);
 
         //Go through each process in the list. If it has children, add a reference to the parent in each child
         for (int i = 0; i < processList.size(); i++) {
@@ -83,7 +79,9 @@ public class Main{
             int childrenCount = currentProcess.getChildren();
 
             if (childrenCount > 0) {
+
                 // Loop through the subsequent items and set the parent. Do this as many times as there are children
+                
                 for (int j = i + 1; j <= i + childrenCount; j++) {
                     if (j < processList.size()) {
                         Process childProcess = processList.get(j);
@@ -92,6 +90,14 @@ public class Main{
                 }
             }
         }
+
+        //Custom comparator to sort based on arrivalTime
+        Comparator<Process> arrivalTimeComparator = Comparator.comparingInt(Process::getArrivalTime);
+
+        //Sort the processList using the custom comparator
+        Collections.sort(processList, arrivalTimeComparator);
+
+        
     }
 
     static int allocate_map(){ 

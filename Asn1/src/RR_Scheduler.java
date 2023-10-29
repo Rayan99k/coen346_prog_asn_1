@@ -34,6 +34,12 @@ public class RR_Scheduler {
 
         while (!readyQueue.isEmpty()) {
 
+            System.out.println("\n  Ready Queue:");
+            printQueue(readyQueue);
+
+            System.out.println("\n  Waiting Queue:");
+            printQueue(waitingQueue);
+
             //poll(): Removes and returns the element at the front of the readyQueue.
             Process currentProcess = readyQueue.poll();
             currentProcess.setState("Running");
@@ -60,7 +66,8 @@ public class RR_Scheduler {
                 readyQueue.add(currentProcess);
             }
 
-            //Otherwise put the process into the Done queue and get its parent if it was the last child
+            //Process is done 
+            //Put into the Done queue and get its parent if it was the last child
             else{            
                 currentProcess.setBurstTime(0);            
                 Time.inc(remainingTime);
@@ -68,18 +75,18 @@ public class RR_Scheduler {
                 currentProcess.setCompletionTime(Time.get()-currentProcess.getArrivalTime());
                 doneQueue.add(currentProcess);
 
-            //Go get the parent 
-            Process parent = currentProcess.getParent();
+                //Go get the parent 
+                Process parent = currentProcess.getParent();
 
-            if (parent != null) {
-                parent.decChildren(); // Decrement the children count
-                
-                //If the current process was the last child put the parent in the readyQueue
-                if (parent.getChildren() == 0) {
-                    waitingQueue.remove(parent); // Remove the parent from waitingQueue
-                    readyQueue.add(parent); // Add the parent to readyQueue
-                }
-            }    
+                if (parent != null) {
+                    parent.decChildren(); // Decrement the children count
+                    
+                    //If the current process was the last child put the parent in the readyQueue
+                    if (parent.getChildren() == 0) {
+                        waitingQueue.remove(parent); // Remove the parent from waitingQueue
+                        readyQueue.add(parent); // Add the parent to readyQueue
+                    }
+                }    
 
             } 
             
@@ -127,5 +134,9 @@ public class RR_Scheduler {
        
     }
 
-
+    private void printQueue(Queue<Process> queue) {
+        for (Process process : queue) {
+            System.out.println("Process in Queue: " + process.getName());
+        }
+    }
 }
