@@ -50,8 +50,11 @@ while (i<num_entries+1):
         for j in range(1, rand_children+1):                        
             rand_priority = random.randint(rand_priority, priority_max)
             rand_burst = random.randint(burst_min,burst_max)
-            rand_arrival = random.randint(rand_arrival, arrival_max)
-            entry =  f"T{task_num}.{j}, {rand_priority}, {rand_burst}, {rand_arrival}, {0}" 
+
+            #Use parent's arrival time as a reference for child's arrival time
+            rand_arrival_child = max(rand_arrival, random.randint(rand_arrival, arrival_max))
+            entry =  f"T{task_num}.{j}, {rand_priority}, {rand_burst}, {rand_arrival_child}, {0}" 
+
             entries.append(entry)
 
         #Increment by the number of children to maintain the same total number of entries
