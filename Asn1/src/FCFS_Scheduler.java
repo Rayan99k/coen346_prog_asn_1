@@ -20,7 +20,7 @@ public class FCFS_Scheduler {
         }   
     } 
 
-    void runScheduler() {
+    String runScheduler() {
         String dashedLine = new String(new char[40]).replace('\0', '-');
         System.out.println(dashedLine);
         System.out.println("    First Come First Serve Scheduling");
@@ -93,7 +93,7 @@ public class FCFS_Scheduler {
         }
 
         //At the end of the run, calculate performance
-        avgTimes();
+        return avgTimes();
 
     }
 
@@ -103,7 +103,7 @@ public class FCFS_Scheduler {
         }
     }
 
-    private void avgTimes(){
+    private String avgTimes(){
         //Calculates the performance of the scheduler.
         //Only looks at the done queue. Make sure the ready and waiting queues are empty.
         
@@ -126,12 +126,12 @@ public class FCFS_Scheduler {
         waitingAvg = waitingTotal / processesTotal;
         responseAvg = responseTotal / processesTotal;
 
-        System.out.println("\nTurnaround Avg: " + turnaroundAvg + 
-        ", Waiting Avg: " + waitingAvg + 
-        ", Response Avg: " + responseAvg + 
-        "\n"
-        );
-
+        String result =   ("\nTurnaround Avg: " + turnaroundAvg + 
+                           ", Waiting Avg: " + waitingAvg + 
+                           ", Response Avg: " + responseAvg + 
+                           "\n"
+                           );
+       return result;
     }
 
 }

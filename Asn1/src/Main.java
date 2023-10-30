@@ -14,6 +14,7 @@ public class Main{
     
 
     public static void main(String[] args) {
+        
                 
         allocate_map(); //Setup the PID array
         sortInputs(); //Create process objects from file. Saved in processList     
@@ -22,7 +23,7 @@ public class Main{
         for (Process process:processList){
             fcfs_scheduler.addProcess(process);            
         }
-        fcfs_scheduler.runScheduler();
+        String fcfs = fcfs_scheduler.runScheduler();
 
         //After each run. Need to reset and add the processes to the new scheduler
         reset();
@@ -31,7 +32,7 @@ public class Main{
         for (Process process:processList){        
             rr_scheduler.addProcess(process);
         }        
-        rr_scheduler.runScheduler();
+        String rr = rr_scheduler.runScheduler();
 
         reset();   
 
@@ -39,9 +40,19 @@ public class Main{
         for (Process process:processList){        
             rr_priority_scheduler.addProcess(process);
         }        
-        rr_priority_scheduler.runScheduler();
+        String rr_priority = rr_priority_scheduler.runScheduler();
 
-
+       
+        String dashedLine = new String(new char[50]).replace('\0', '-');
+    
+        String output = dashedLine + 
+                        "\n             RESULTS\n\n" + 
+                        "First Come First Serve: " + fcfs + 
+                        "\nRound Robin: " + rr + 
+                        "\nRound Robin With Priority: " + rr_priority + 
+                        "\n" + dashedLine;
+        
+        System.out.println(output);
 
     }
 
