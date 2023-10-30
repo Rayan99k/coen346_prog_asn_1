@@ -91,7 +91,6 @@ public class RR_Scheduler {
                         parent.setState("Ready");
                     }
                 }    
-
             } 
             
             currentProcess.setLastServed(Time.get());

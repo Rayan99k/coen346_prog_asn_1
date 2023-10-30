@@ -34,22 +34,6 @@ public class FCFS_Scheduler {
             System.out.print("\n  Waiting Queue: ");
             printQueue(waitingQueue);
 
-            
-            // if (!readyQueue.isEmpty()) {
-            //     currentProcess = readyQueue.poll();
-            // } else if (!waitingQueue.isEmpty()) {
-            //     //If readyQueue is empty, but there are processes in waitingQueue, process them first
-            //     currentProcess = waitingQueue.poll();
-            //     //Check if the process has children
-            //     if (currentProcess.getChildren() > 0) {
-            //         //If it has children, handle them and move the parent to the ready queue afterward
-            //         readyQueue.add(currentProcess);
-            //     }
-            // } else {
-            //     //Both readyQueue and waitingQueue are empty
-            //     break;
-            // }
-
             //poll(): Removes and returns the element at the front of the readyQueue.  
             Process currentProcess = readyQueue.poll();
             currentProcess.setState("Running");
@@ -82,8 +66,6 @@ public class FCFS_Scheduler {
                     parent.setState("Ready");
                 }
             }    
-
-        
 
             System.out.println("\nCurrent Time: " + Time.get() + 
             "   Process: " + currentProcess.getName() + 

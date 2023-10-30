@@ -112,7 +112,6 @@ public class RR_Priority_Scheduler {
             }
         } 
         
-    
         //At the end of the run, calculate performance
         return avgTimes();
     }
