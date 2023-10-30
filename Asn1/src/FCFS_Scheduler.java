@@ -21,14 +21,17 @@ public class FCFS_Scheduler {
     } 
 
     void runScheduler() {
-        System.out.println("\n\n    First Come First Serve Scheduling\n\n");
+        String dashedLine = new String(new char[40]).replace('\0', '-');
+        System.out.println(dashedLine);
+        System.out.println("    First Come First Serve Scheduling");
+        System.out.println(dashedLine);
         
         while (!readyQueue.isEmpty()) {
 
-            System.out.println("\n  Ready Queue:");
+            System.out.print("\n  Ready Queue: ");
             printQueue(readyQueue);
 
-            System.out.println("\n  Waiting Queue:");
+            System.out.print("\n  Waiting Queue: ");
             printQueue(waitingQueue);
 
             
@@ -76,15 +79,17 @@ public class FCFS_Scheduler {
                 if (parent.getChildren() == 0) {
                     waitingQueue.remove(parent); // Remove the parent from waitingQueue
                     readyQueue.add(parent); // Add the parent to readyQueue
+                    parent.setState("Ready");
                 }
             }    
 
         
 
-            System.out.println("Current Time: " + Time.get() + 
-                               ", Process: " + currentProcess.getName() + 
-                               ", Remaining CPU: " + currentProcess.getBurstTime() 
-                              );
+            System.out.println("\nCurrent Time: " + Time.get() + 
+            "   Process: " + currentProcess.getName() + 
+            "   Remaining CPU: " + currentProcess.getBurstTime()  +
+            "\n"
+            );
         }
 
         //At the end of the run, calculate performance
@@ -94,7 +99,7 @@ public class FCFS_Scheduler {
 
     private void printQueue(Queue<Process> queue) {
         for (Process process : queue) {
-            System.out.println("Process in Queue: " + process.getName());
+            System.out.print(process.getName() + ", ");
         }
     }
 

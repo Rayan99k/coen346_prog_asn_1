@@ -10,6 +10,7 @@ public class Main{
     static List<Process> processList = new ArrayList<>();
     static FCFS_Scheduler fcfs_scheduler = new FCFS_Scheduler();
     static RR_Scheduler rr_scheduler = new RR_Scheduler();
+    static RR_Priority_Scheduler rr_priority_scheduler = new RR_Priority_Scheduler();
     
 
     public static void main(String[] args) {
@@ -31,7 +32,16 @@ public class Main{
             rr_scheduler.addProcess(process);
         }        
         rr_scheduler.runScheduler();
+
         reset();   
+
+        //Add all processes to the Scheduler
+        for (Process process:processList){        
+            rr_priority_scheduler.addProcess(process);
+        }        
+        rr_priority_scheduler.runScheduler();
+
+
 
     }
 
