@@ -1,13 +1,13 @@
 import java.util.*;
 public class RR_Priority_Scheduler {
 
-    int quantum;
-    int turnaroundAvg, responseAvg, waitingAvg;
+    private int quantum;
+    private int turnaroundAvg, responseAvg, waitingAvg;
     
-    Queue<Process> doneQueue = new LinkedList<Process>();
+    private Queue<Process> doneQueue = new LinkedList<Process>();
 
-    Queue<Process>[] readyQueues;
-    Queue<Process>[] waitingQueues;
+    private Queue<Process>[] readyQueues;
+    private Queue<Process>[] waitingQueues;
 
     public RR_Priority_Scheduler() {
         quantum = 4; //Default time quantum

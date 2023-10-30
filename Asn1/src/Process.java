@@ -12,7 +12,6 @@ public class Process{
     private int children;                   // Number of children
     private Process parent;                 // A reference to the parent of a process
     private String state;                   // Waiting, Ready, Running
-    //private boolean isParent;               // Parent or child (T/F)
 
     static int totalprocesses = 0;
 

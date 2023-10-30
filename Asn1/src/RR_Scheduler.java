@@ -1,12 +1,12 @@
 import java.util.*;
 public class RR_Scheduler {
 
-    int quantum;
-    int turnaroundAvg, responseAvg, waitingAvg;
+    private int quantum;
+    private int turnaroundAvg, responseAvg, waitingAvg;
 
-    Queue<Process> readyQueue = new LinkedList<Process>(); 
-    Queue<Process> waitingQueue = new LinkedList<Process>(); 
-    Queue<Process> doneQueue = new LinkedList<Process>(); 
+    private Queue<Process> readyQueue = new LinkedList<Process>(); 
+    private Queue<Process> waitingQueue = new LinkedList<Process>(); 
+    private Queue<Process> doneQueue = new LinkedList<Process>(); 
 
     
     RR_Scheduler(){

@@ -1,12 +1,12 @@
 import java.util.*;
 public class FCFS_Scheduler {
 
-    Queue<Process> readyQueue = new LinkedList<Process>(); 
-    Queue<Process> waitingQueue = new LinkedList<Process>(); 
-    Queue<Process> doneQueue = new LinkedList<>();
+   private Queue<Process> readyQueue = new LinkedList<Process>(); 
+   private Queue<Process> waitingQueue = new LinkedList<Process>(); 
+   private Queue<Process> doneQueue = new LinkedList<>();
 
 
-    int turnaroundAvg, responseAvg, waitingAvg;
+   private int turnaroundAvg, responseAvg, waitingAvg;
         
     void addProcess(Process process) {
         //Add process to appropriate queue. Waiting as long as it has children
